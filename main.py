@@ -94,7 +94,14 @@ def click(event):
 c.bind('<Button-1>', click)
 c.pack()
 
+#  Создаем список блоков
 board = list(range(1, EMPTY_SQUARE + 1))
+# Список с которым мы будем сравнивать результат. В данном случае это
+# просто отсортированный список, но при желании можно придумать что-то другое
+correct_board = board[:]
+# перемешиваем блоки
+shuffle(board)
 
+# рисуем доску
 draw_board()
 root.mainloop()
