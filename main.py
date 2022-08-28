@@ -16,6 +16,32 @@ c = Canvas(root, width=BOARD_SIZE * SQUARE_SIZE,
                  bg='#808080')
 c.pack()
 
+def get_inv_count():
+    """ Функция считающая количество перемещений """
+    inversions = 0
+    inversion_board = board[:]
+    inversion_board.remove(EMPTY_SQUARE)
+    for i in range(len(inversion_board)):
+        first_item = inversion_board[i]
+        for j in range(i+1, len(inversion_board)):
+            second_item = inversion_board[j]
+            if first_item > second_item:
+                inversions += 1
+    return inversions
+
+
+def is_solvable():
+    """ Функция определяющая имеет ли головоломка рещение """
+    num_inversions = get_inv_count()
+    if BOARD_SIZE % 2 != 0:
+        return num_inversions % 2 == 0
+    else:
+        empty_square_row = BOARD_SIZE - (board.index(EMPTY_SQUARE) // BOARD_SIZE)
+        if empty_square_row % 2 == 0:
+            return num_inversions % 2 != 0
+        else:
+            return num_inversions % 2 == 0
+
 def get_empty_neighbor(index):
     # получаем индекс пустой клетки в списке
     empty_index = board.index(EMPTY_SQUARE)
@@ -101,6 +127,9 @@ board = list(range(1, EMPTY_SQUARE + 1))
 correct_board = board[:]
 # перемешиваем блоки
 shuffle(board)
+
+while not is_solvable():
+    shuffle(board)
 
 # рисуем доску
 draw_board()
