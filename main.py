@@ -60,6 +60,18 @@ def draw_board():
                               font="Arial {} italic".format(int(SQUARE_SIZE / 4)),
                               fill='#FFFFFF')
 
+def show_victory_plate():
+    # Рисуем черный квадрат по центру поля
+    c.create_rectangle(SQUARE_SIZE / 5,
+                       SQUARE_SIZE * BOARD_SIZE / 2 - 10 * BOARD_SIZE,
+                       BOARD_SIZE * SQUARE_SIZE - SQUARE_SIZE / 5,
+                       SQUARE_SIZE * BOARD_SIZE / 2 + 10 * BOARD_SIZE,
+                       fill='#000000',
+                       outline='#FFFFFF')
+    # Пишем красным текст Победа
+    c.create_text(SQUARE_SIZE * BOARD_SIZE / 2, SQUARE_SIZE * BOARD_SIZE / 1.9,
+                  text="ПОБЕДА!", font="Helvetica {} bold".format(int(10 * BOARD_SIZE)), fill='#DC143C')
+
 def click(event):
     # Получаем координаты клика
     x, y = event.x, event.y
